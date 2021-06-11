@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tree>
+    <node>
+      	<node>
+        	<node>
+          		<node value="-1"/>
+        		<node value="3"/>
+        	</node>
+        	<node>
+          		<node value="5"/>
+          		<node value="1"/>
+        	</node>
+      	</node>
+      	<node>
+	        <node>
+	          	<node value="-6"/>
+	          	<node value="-4"/>
+	        </node>
+	        <node>
+	          	<node value="0"/>
+	          	<node value="9"/>
+	        </node>
+	    </node>
+    </node>
+</tree>
