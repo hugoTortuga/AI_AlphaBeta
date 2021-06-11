@@ -12,9 +12,10 @@ namespace AI_AlphaBeta
 
         public Point Position { get; set; }
 
-        public NodeViewModel(Node node, double x, double y)
+        public NodeViewModel(Node node, double x, double y, bool isMax)
         {
             Node = node;
+            node.IsMax = isMax;
             Position = new Point(x, y);
         }
 

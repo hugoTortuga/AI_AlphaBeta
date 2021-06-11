@@ -14,6 +14,8 @@ namespace AI_AlphaBeta.Model
         //boolean to say if the algorithm visited this node or not
         public bool WentIn { get; set; }
 
+        public bool IsMax { get; set; }
+
         //each node can have a list of children nodes
         public List<Node> Children { get; set; }
 

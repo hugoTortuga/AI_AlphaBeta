@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
-namespace AI_AlphaBeta
+namespace Mini_Max
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Logique d'interaction pour App.xaml
     /// </summary>
     public partial class App : Application
     {
-        public App()
-        {
-           this.InitializeComponent();
-        }
     }
 }

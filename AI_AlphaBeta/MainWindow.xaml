@@ -6,13 +6,18 @@
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="telerik:RadDiagramShape">
-
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Node.WentIn}" Value="False">
                     <Setter Property="Background" Value="LightGray"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Node.WentIn}" Value="True">
                     <Setter Property="Background" Value="#FF95F790"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Node.IsMax}" Value="False">
+                    <Setter Property="BorderBrush" Value="#FF4C1F59"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Node.IsMax}" Value="True">
+                    <Setter Property="BorderBrush" Value="#FFFF9700"/>
                 </DataTrigger>
             </Style.Triggers>
             <Setter Property="Background" Value="#FF67B3FF"/>
@@ -45,10 +50,11 @@
         </Grid.RowDefinitions>
         <Grid VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Click="ChooseFile" Padding="10" Margin="10,0">Choose File</Button>
@@ -66,11 +72,22 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <TextBlock Grid.Column="4" Text="{Binding Result, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="14" Margin="10,0" Foreground="#FF113F6E"></TextBlock>
+            <Button Grid.Column="4" Click="ChangeRoot" Padding="10" Margin="10,0">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Content" Value="Set Root to Min" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsRootMax}" Value="False">
+                                <Setter Property="Content" Value="Set Root to Max" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <TextBlock Grid.Column="5" Text="{Binding Result, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="14" Margin="10,0" Foreground="#FF113F6E"></TextBlock>
         </Grid>
-
-        <telerik:RadDiagram VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="White" Grid.Row="1" 
-                            IsBackgroundSurfaceVisible="False" GraphSource="{Binding TreeViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="14" Margin="10,0" Foreground="#FF113F6E" Text="{Binding Footer, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+        <telerik:RadDiagram Grid.Row="1" Grid.RowSpan="6" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="White"
+                            IsBackgroundSurfaceVisible="False" GraphSource="{Binding TreeViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="RadDiagram" />
+        <TextBlock Grid.Row="2" VerticalAlignment="Center" FontSize="14" Margin="10,0" Foreground="#FF113F6E" Text="{Binding Footer, UpdateSourceTrigger=PropertyChanged}">Surrounded orange nodes are maximum and surrounded purple nodes are minimum</TextBlock>
     </Grid>
 </Window>

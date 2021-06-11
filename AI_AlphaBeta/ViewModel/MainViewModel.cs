@@ -64,6 +64,26 @@ namespace AI_AlphaBeta
             }
         }
 
+        private bool _IsRootMax;
+        public bool IsRootMax
+        {
+            get
+            {
+                return _IsRootMax;
+            }
+            set
+            {
+                _IsRootMax = value;
+                OnPropertyChanged("IsRootMax");
+            }
+        }
+
+        public void ChangeRoot()
+        {
+            if (IsRootMax) IsRootMax = false;
+            else IsRootMax = true;
+        }
+
         // Used to change direction from righttoleft to lefttoright
         public void ChangeDirection()
         {
@@ -83,7 +103,8 @@ namespace AI_AlphaBeta
         public MainViewModel()
         {
             IsRightToLeft = true;
-            TreeViewModel = new TreeViewModel(null);
+            IsRootMax = true;
+            TreeViewModel = new TreeViewModel(null, IsRootMax);
         }
 
      
@@ -116,7 +137,7 @@ namespace AI_AlphaBeta
         {
             if (Tree != null && Tree.Root != null)
             {
-                TreeViewModel.UpdateTree(Tree);
+                TreeViewModel.UpdateTree(Tree, IsRootMax);
                 Result = "";
                 Footer = "";
             }
@@ -127,7 +148,7 @@ namespace AI_AlphaBeta
         {
             if(Tree != null && Tree.Root != null)
             {
-                Tree = Core.AlphaBeta.FillTree(Tree, IsRightToLeft);
+                Tree = Core.AlphaBeta.FillTree(Tree, IsRightToLeft, IsRootMax);
                 UpdateTree();
                 // compute the pourcentage of visited nodes :
                 decimal pourcentage = (decimal)((TreeViewModel.NbVisitedNode() * 1.0) / (TreeViewModel.Items.Count * 1.0) * 100);
@@ -146,7 +167,7 @@ namespace AI_AlphaBeta
                 try
                 {
                     Tree = XMLConverter.ConvertXMLtoTree(SelectedFilePath);
-                    TreeViewModel.UpdateTree(Tree);
+                    TreeViewModel.UpdateTree(Tree, IsRootMax);
                 } catch
                 {
                     MessageBox.Show("Wrong XML data ! ", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

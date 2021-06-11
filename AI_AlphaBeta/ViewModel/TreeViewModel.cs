@@ -15,7 +15,7 @@ namespace AI_AlphaBeta.ViewModel
         //current yPosition of the node
         private double yCounter;
 
-        public TreeViewModel(Tree tree)
+        public TreeViewModel(Tree tree, bool isRootMax)
         {
             //we initialize the two lists of items and links between items
             Items = new ObservableCollection<NodeViewModel>();
@@ -25,33 +25,33 @@ namespace AI_AlphaBeta.ViewModel
             xCounter = 10;
             yCounter = 10;
 
-            if (tree != null && tree.Root != null) AddNode(tree.Root);
+            if (tree != null && tree.Root != null) AddNode(tree.Root, isRootMax);
         }
 
         // update the treeViewModel
-        public void UpdateTree(Tree tree)
+        public void UpdateTree(Tree tree, bool isRootMax)
         {
             xCounter = 10;
             yCounter = 10;
             Items.Clear();
             Links.Clear();
-            if (tree != null && tree.Root != null) AddNode(tree.Root);
+            if (tree != null && tree.Root != null) AddNode(tree.Root, isRootMax);
         }
 
         // recursive function
         //add the current node to the items list
         //and calls itself for every children of the node
-        private void AddNode(Node node)
+        private void AddNode(Node node, bool isMax)
         {
-            var nodeViewModel = new NodeViewModel(node, xCounter, yCounter);
+            var nodeViewModel = new NodeViewModel(node, xCounter, yCounter, isMax);
             Items.Add(nodeViewModel);
             if(node.Children != null && node.Children.Count > 0)
             {
                 yCounter += 70;
                 foreach (var child in node.Children)
                 {
-                    Links.Add(new LinkViewModel(nodeViewModel, new NodeViewModel(child, xCounter, yCounter)));
-                    AddNode(child);
+                    Links.Add(new LinkViewModel(nodeViewModel, new NodeViewModel(child, xCounter, yCounter, !isMax)));
+                    AddNode(child, !isMax);
                     xCounter += 70;
                 }
                 xCounter -= 70;

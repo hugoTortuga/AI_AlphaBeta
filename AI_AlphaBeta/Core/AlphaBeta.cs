@@ -10,13 +10,13 @@ namespace AI_AlphaBeta.Core
         private static bool IsRightToLeft;
 
         //Main method, initialize the algorithm
-        public static Tree FillTree(Tree emptyTree, bool isRightToLeft)
+        public static Tree FillTree(Tree emptyTree, bool isRightToLeft, bool isRootMax)
         {
             IsRightToLeft = isRightToLeft;
             if (emptyTree != null && emptyTree.Root != null)
             {
                 // the recursive function fillNode, give the maximum for the root
-                int max = FillNode(emptyTree.Root, -10000, 10000, true);
+                int max = FillNode(emptyTree.Root, -10000, 10000, isRootMax);
                 emptyTree.Root.Value = max;
                 emptyTree.Root.WentIn = true;
                 // (you always visit the root)

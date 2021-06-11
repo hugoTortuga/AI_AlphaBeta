@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace AI_AlphaBeta
 {
@@ -44,6 +45,11 @@ namespace AI_AlphaBeta
         private void ChangeDirection(object sender, RoutedEventArgs e)
         {
             MainViewModel.ChangeDirection();
+        }
+
+        private void ChangeRoot(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.ChangeRoot();
         }
 
         //calls the ChooseFile methods of the mainviewmodel
